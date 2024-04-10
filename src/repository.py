@@ -12,7 +12,7 @@ class RepositoryShoppingCart:
             response: requests.models.Response = requests.get(url)
             data: dict = response.json()
 
-            result: list = data['results'][:30]
+            result: list = data['results']
              
             return result
         except Exception as e:
@@ -26,7 +26,7 @@ class RepositoryShoppingCart:
                 format_dict: dict = {
                     "product_id": item["id"],
                     "product_title": item["title"],
-                    "product_image": item["thumbnail"],
+                    "product_image": item["thumbnail"].replace("I.jpg", "W.jpg"),
                     "product_price": item["price"]
                 }
                 result.append(format_dict)
