@@ -2,8 +2,8 @@ import requests
 from fastapi import HTTPException
 
 class RepositoryShoppingCart:
-    # def __init__() -> None:
-    #     ...
+    def __init__(self):
+        self.shopping_cart = []
 
     def _get_data_from_meliapi(self) -> list:
         try:
@@ -44,5 +44,27 @@ class RepositoryShoppingCart:
 
              
             return result
+        except Exception as e:
+                raise e
+        
+    def post_cart_products(self, items: list) -> list:
+        try:
+            self.shopping_cart.clear()
+            self.shopping_cart.extend(items)
+
+            result: list = self.shopping_cart
+
+            return result
+        
+        except Exception as e:
+                raise e
+
+
+    def get_cart_products(self) -> list:
+        try:  
+            result: list = self.shopping_cart
+
+            return result
+    
         except Exception as e:
                 raise e
