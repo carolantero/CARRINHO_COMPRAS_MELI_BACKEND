@@ -5,6 +5,9 @@ from src.repository import RepositoryShoppingCart
 
 class TestRepositoryShoppingCart(unittest.TestCase):
     def setUp(self):
+        """
+        Prepara o ambiente de teste inicializando uma instância de RepositoryShoppingCart, define uma lista de produtos de exemplo e sua formatação correspondente.
+        """
         self.repository = RepositoryShoppingCart()
         self.products_list = [
             {'id': 'ID_1', 'title': 'Product 1', 'thumbnail': 'image.I.jpg', 'price': 10.0},
@@ -33,6 +36,9 @@ class TestRepositoryShoppingCart(unittest.TestCase):
         ]
 
     def test_organize_products_list(self):
+        """
+        Testa o método _organize_products_list e verifica se a lista de produtos é organizada corretamente conforme esperado.
+        """
         result = self.repository._organize_products_list(self.products_list)
 
         self.assertEqual(len(result), 3)
@@ -44,6 +50,9 @@ class TestRepositoryShoppingCart(unittest.TestCase):
 
 
     def test_post_cart_products(self):
+        """
+        Testa o método post_cart_products e verifica se os produtos são adicionados corretamente ao carrinho.
+        """
         result = self.repository.post_cart_products(self.format_products_list)
 
         self.assertEqual(len(result), 3)
@@ -56,6 +65,9 @@ class TestRepositoryShoppingCart(unittest.TestCase):
 
 
     def test_get_cart_products(self):
+        """
+        Testa o método get_cart_products e verifica se os produtos do carrinho são retornados corretamente.
+        """
         self.repository.shopping_cart = self.format_products_list
 
         result = self.repository.get_cart_products()
