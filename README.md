@@ -29,6 +29,8 @@ Para iniciar o projeto, siga as instruções abaixo:
 
 # Windows
 
+#### 💻 Executar com pip install
+
 ```bash
 # Instalando dependências do projeto
 $ python -m venv venv
@@ -38,3 +40,15 @@ $ pip install -r requirements.txt
 # Rodar o projeto
 $ uvicorn main:app --reload
 ```
+
+#### 🐳 Executar com Docker
+
+```bash
+# Construa a imagem Docker:
+$ docker build -t carrinhocomprasbackend:latest .
+
+# Execute o contêiner Docker:
+$ docker run -d -p 8000:8000 carrinhocomprasbackend
+```
+
+- ###### O Swagger estará acessível em http://localhost:8000/docs.
