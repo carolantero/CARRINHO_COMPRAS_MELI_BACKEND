@@ -76,5 +76,23 @@ class TestRepositoryShoppingCart(unittest.TestCase):
         self.assertEqual(result[0]['product_id'], 'ID_1')
         self.assertEqual(result[1]['product_id'], 'ID_2')
 
+    def test_truncated_text(self):
+        """
+        Testa o método _truncated_text e se necessário de acordo com os parâmetros, reduz a quantidade de caracteres do texto.
+        """
+        max_length = 10
+
+        long_text = "This is a longer text than the maximum length"
+        long_text_expected_result = "This is a ..."
+
+        short_text = "Short text"
+        short_text_expected_result = "Short text"
+
+        long_text_result = self.repository._truncated_text(max_length, long_text)
+        self.assertEqual(long_text_result, long_text_expected_result)
+
+        short_text_result = self.repository._truncated_text(max_length, short_text)
+        self.assertEqual(short_text_result, short_text_expected_result)
+
 if __name__ == '__main__':
     unittest.main()
