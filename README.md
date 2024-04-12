@@ -12,6 +12,7 @@ API capaz de gerar dados para controlar o fluxo de um carrinho de compras, permi
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [Python](https://www.python.org/) - Linguagem de programação.
+- [Docker](https://docs.docker.com/) - Plataforma de software para automação de implantação e execução de aplicativos em ambientes isolados chamados containers.
 
   ### 🧪 Testes
 
