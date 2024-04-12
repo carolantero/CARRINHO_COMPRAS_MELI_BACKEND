@@ -36,9 +36,10 @@ class RepositoryShoppingCart:
             result: list = []
 
             for item in products_list:
+                truncated_title: str = self._truncated_text(max_text_length=60, text=item["title"])
                 format_dict: dict = {
                     "product_id": item["id"],
-                    "product_title": item["title"],
+                    "product_title": truncated_title,
                     "product_image": item["thumbnail"].replace("I.jpg", "W.jpg"),
                     "product_price": item["price"]
                 }
@@ -47,6 +48,20 @@ class RepositoryShoppingCart:
             return result
         except Exception as e:
                 raise e
+
+    def _truncated_text(self, max_text_length: int, text: str) -> str:
+        """
+        Retorna uma versão truncada do texto fornecido, limitada ao comprimento máximo especificado.
+
+        Args: max_text_length: O comprimento máximo do texto truncado.
+              text: O texto a ser truncado.
+              
+        Retorna: Uma versão truncada do texto, seguida de "..." se o texto original exceder o comprimento máximo, 
+        caso contrário, o texto original é retornado sem modificações.
+        """
+        result: str = text[:max_text_length] + "..." if len(text) > max_text_length else text
+
+        return result
 
     def get_all_products(self) -> list:
         """
