@@ -30,7 +30,7 @@ def controller_post_cart_products(items: List[ShoppingCartItem]):
     Retorna: Uma lista de dicionários representando os itens adicionados ao carrinho.
     """
     try:
-        result: list = repository.post_cart_products(items)
+        result: list = repository.post_cart_products(items=items)
 
         return result
     except Exception as e:
