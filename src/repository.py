@@ -1,5 +1,4 @@
 import requests
-from fastapi import HTTPException
 
 class RepositoryShoppingCart:
     def __init__(self):
@@ -25,7 +24,7 @@ class RepositoryShoppingCart:
             return result
         except Exception as e:
                 raise e
-        
+
     def _organize_products_list(self, products_list: list) -> list:
         """
         Organiza a lista de produtos recebida em um formato específico.
@@ -48,7 +47,6 @@ class RepositoryShoppingCart:
             return result
         except Exception as e:
                 raise e
-         
 
     def get_all_products(self) -> list:
         """
@@ -65,7 +63,7 @@ class RepositoryShoppingCart:
             return result
         except Exception as e:
                 raise e
-        
+
     def post_cart_products(self, items: list) -> list:
         """
         Adiciona itens ao carrinho de compras.
@@ -83,7 +81,6 @@ class RepositoryShoppingCart:
         
         except Exception as e:
                 raise e
-
 
     def get_cart_products(self) -> list:
         """
