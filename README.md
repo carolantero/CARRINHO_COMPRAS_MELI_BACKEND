@@ -1,6 +1,5 @@
 ## 🛒 API Python para Controle de Carrinho de Compras
 
-Repositório para o case técnico do Mercado Livre.
 API capaz de gerar dados para controlar o fluxo de um carrinho de compras, permitindo:
 
 - Listar todos os produtos
