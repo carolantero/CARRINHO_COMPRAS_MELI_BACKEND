@@ -1,4 +1,5 @@
 import requests
+from fastapi import HTTPException
 
 class RepositoryShoppingCart:
     def __init__(self):
@@ -9,13 +10,12 @@ class RepositoryShoppingCart:
 
     def _get_data_from_meliapi(self) -> list:
         """
-        Obtém dados da API externa (acesse: 'https://developers.mercadolibre.com/' para saber mais), para produtos de uma determinada categoria.
+        Obtém dados de todos os produtos da API externa (acesse: 'https://developers.mercadolibre.com/' para saber mais).
 
         Retorna: Uma lista de dicionários representando os produtos obtidos.
         """
         try:
-            category: str = 'eletrodomestico'
-            url: str = f'https://api.mercadolibre.com/sites/MLB/search?q={category}'
+            url: str = f'https://api.mercadolibre.com/sites/MLB/search?q=all'
             response: requests.models.Response = requests.get(url)
             data: dict = response.json()
 
@@ -24,6 +24,37 @@ class RepositoryShoppingCart:
             return result
         except Exception as e:
                 raise e
+        
+
+    def _get_data_from_meliapi_by_category(self, category: str) -> list:
+        """
+        Obtém dados da API externa (acesse: 'https://developers.mercadolibre.com/' para saber mais), para produtos de uma determinada categoria.
+
+        Args:
+            category: uma categoria do tipo 'str' que será usada como parametro na url da api externa.
+            
+        Retorna:
+            Uma lista de dicionários representando os produtos obtidos.
+
+        Lança:
+            HTTPException: Se a categoria não for válida ou não retornar resultados.
+        """
+        try:
+            url: str = f'https://api.mercadolibre.com/sites/MLB/search?q={category}'
+            response: requests.models.Response = requests.get(url)
+            response.raise_for_status()
+
+            data: dict = response.json()
+
+            result: list = data.get('results', [])
+
+            if not result:
+                raise HTTPException(status_code=404, detail="Categoria não é válida ou não retornou resultados. Por favor, tente outra categoria.")
+
+            return result
+        except requests.exceptions.RequestException as e:
+            raise HTTPException(status_code=500, detail="Erro ao se comunicar com a API externa.") from e
+        
 
     def _organize_products_list(self, products_list: list) -> list:
         """
@@ -71,6 +102,23 @@ class RepositoryShoppingCart:
         """
         try:
             data_products: list = self._get_data_from_meliapi()
+
+            result: list = self._organize_products_list(products_list=data_products) 
+
+             
+            return result
+        except Exception as e:
+                raise e
+        
+    def get_products_by_category(self, category: str) -> list:
+        """
+        Obtémos produtos disponíveis da API externa de acordo com sua categoria e os organiza.
+
+        Args: category: uma categoria do tipo 'str' que será usada como parametro na url da api externa.
+        Retorna: Uma lista de dicionários representando os produtos organizados e formatados.
+        """
+        try:
+            data_products: list = self._get_data_from_meliapi_by_category(category=category)
 
             result: list = self._organize_products_list(products_list=data_products) 
 
