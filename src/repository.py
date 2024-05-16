@@ -17,13 +17,15 @@ class RepositoryShoppingCart:
         try:
             url: str = f'https://api.mercadolibre.com/sites/MLB/search?q=all'
             response: requests.models.Response = requests.get(url)
+            response.raise_for_status()
+            
             data: dict = response.json()
 
             result: list = data['results']
              
             return result
-        except Exception as e:
-                raise e
+        except requests.exceptions.RequestException as e:
+            raise HTTPException(status_code=500, detail="Erro ao se comunicar com a API externa.") from e
         
 
     def _get_data_from_meliapi_by_category(self, category: str) -> list:
