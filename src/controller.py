@@ -85,7 +85,7 @@ def controller_get_cart_products():
     except Exception as e:
         raise HTTPException(status_code=500, detail="Erro interno do servidor ao tentar obter os itens do carrinho.") from e
     
-@router.delete("/delete_cart_product/{item_id}", tags=["Deletar Item do Carrinho"])
+@router.delete("/delete_cart_product/{product_id}", tags=["Deletar Item do Carrinho"])
 def controller_delete_cart_product(product_id: str):
     """
     Deleta um item do carrinho de compras com base no ID.
