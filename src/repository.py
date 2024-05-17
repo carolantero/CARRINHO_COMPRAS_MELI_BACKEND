@@ -18,7 +18,7 @@ class RepositoryShoppingCart:
             url: str = f'https://api.mercadolibre.com/sites/MLB/search?q=all'
             response: requests.models.Response = requests.get(url)
             response.raise_for_status()
-            
+
             data: dict = response.json()
 
             result: list = data['results']
@@ -107,7 +107,6 @@ class RepositoryShoppingCart:
 
             result: list = self._organize_products_list(products_list=data_products) 
 
-             
             return result
         except Exception as e:
                 raise e
@@ -158,5 +157,26 @@ class RepositoryShoppingCart:
 
             return result
     
+        except Exception as e:
+                raise e
+        
+    def delete_cart_product(self, product_id: str) -> bool:
+        """
+        Deleta um item do carrinho com base no id do produto.
+
+        Args:
+            product_id: O ID do item a ser deletado.
+
+        Retorna:
+            bool: True se o item foi deletado com sucesso, False se o produto não foi encontrado.
+        """
+        try: 
+            initial_count = len(self.shopping_cart)
+            self.shopping_cart = [item for item in self.shopping_cart if item.product_id != product_id]
+
+            result: bool = len(self.shopping_cart) < initial_count
+
+            return result
+
         except Exception as e:
                 raise e

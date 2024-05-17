@@ -44,7 +44,7 @@ def controller_get_products_by_category(category: str):
 
         return result
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Erro interno do servidor.") from e
+        raise HTTPException(status_code=500, detail=str(e)) from e
     
 @router.post("/post_cart_products/", tags=["Adicionar Itens ao Carrinho"])
 def controller_post_cart_products(items: List[ShoppingCartItem]):
@@ -84,3 +84,27 @@ def controller_get_cart_products():
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail="Erro interno do servidor ao tentar obter os itens do carrinho.") from e
+    
+@router.delete("/delete_cart_product/{item_id}", tags=["Deletar Item do Carrinho"])
+def controller_delete_cart_product(product_id: str):
+    """
+    Deleta um item do carrinho de compras com base no ID.
+
+    Args:
+        product_id: O ID do item a ser deletado.
+
+    Retorna:
+        Uma mensagem de sucesso ou erro.
+
+    Lança:
+        HTTPException: Se ocorrer algum erro ao tentar deletar o item do carrinho.
+    """
+    try:
+        result = repository.delete_cart_product(product_id=product_id)
+
+        if not result:
+            raise HTTPException(status_code=404, detail="Item não encontrado no carrinho.")
+        return {"detail": "Item deletado com sucesso do carrinho."}
+    
+    except Exception as e:
+       raise HTTPException(status_code=500, detail="Erro interno do servidor ao tentar deletar o item do carrinho.") from e
