@@ -10,10 +10,15 @@ class RepositoryShoppingCart:
 
     def _get_data_from_meliapi(self) -> list:
         """
-        Obtém dados de todos os produtos da API externa (acesse: 'https://developers.mercadolibre.com/' para saber mais).
+        Obtém dados de todos os produtos da API externa do Mercado Livre (veja mais em: https://developers.mercadolibre.com/).
 
-        Retorna: Uma lista de dicionários representando os produtos obtidos.
+        Retorna:
+            list: Uma lista de dicionários, onde cada dicionário representa um produto obtido da API.
+
+        Lança:
+            HTTPException: Se ocorrer um erro ao se comunicar com a API externa.
         """
+    
         try:
             url: str = f'https://api.mercadolibre.com/sites/MLB/search?q=all'
             response: requests.models.Response = requests.get(url)
@@ -62,8 +67,11 @@ class RepositoryShoppingCart:
         """
         Organiza a lista de produtos recebida em um formato específico.
 
-        Args: products_list: Uma lista de dicionários representando os produtos que devem ser formatados.
-        Retorna: Uma lista de dicionários representando os produtos já formatados.
+        Args:
+            products_list (list): Uma lista de dicionários, onde cada dicionário representa um produto a ser formatado.
+
+        Retorna:
+            list: Uma lista de dicionários, onde cada dicionário representa um produto formatado.
         """
         try:
             result: list = []
@@ -86,11 +94,13 @@ class RepositoryShoppingCart:
         """
         Retorna uma versão truncada do texto fornecido, limitada ao comprimento máximo especificado.
 
-        Args: max_text_length: O comprimento máximo do texto truncado.
-              text: O texto a ser truncado.
-              
-        Retorna: Uma versão truncada do texto, seguida de "..." se o texto original exceder o comprimento máximo, 
-        caso contrário, o texto original é retornado sem modificações.
+        Args:
+            max_text_length (int): O comprimento máximo do texto truncado.
+            text (str): O texto a ser truncado.
+
+        Retorna:
+            str: Uma versão truncada do texto, seguida de "..." se o texto original exceder o comprimento máximo.
+                Caso contrário, o texto original é retornado sem modificações.
         """
         result: str = text[:max_text_length] + "..." if len(text) > max_text_length else text
 
@@ -100,7 +110,8 @@ class RepositoryShoppingCart:
         """
         Obtém todos os produtos disponíveis da API externa e os organiza.
 
-        Retorna: Uma lista de dicionários representando os produtos organizados e formatados.
+        Retorna:
+            list: Uma lista de dicionários representando os produtos organizados e formatados.
         """
         try:
             data_products: list = self._get_data_from_meliapi()
@@ -113,10 +124,13 @@ class RepositoryShoppingCart:
         
     def get_products_by_category(self, category: str) -> list:
         """
-        Obtémos produtos disponíveis da API externa de acordo com sua categoria e os organiza.
+        Obtém os produtos disponíveis da API externa de acordo com sua categoria e os organiza.
 
-        Args: category: uma categoria do tipo 'str' que será usada como parametro na url da api externa.
-        Retorna: Uma lista de dicionários representando os produtos organizados e formatados.
+        Args:
+            category (str): Uma categoria que será usada como parâmetro na URL da API externa.
+
+        Retorna:
+            list: Uma lista de dicionários representando os produtos organizados e formatados.
         """
         try:
             data_products: list = self._get_data_from_meliapi_by_category(category=category)
@@ -132,8 +146,11 @@ class RepositoryShoppingCart:
         """
         Adiciona itens ao carrinho de compras.
 
-        Args: items: Uma lista de dicionários representando os itens a serem adicionados ao carrinho.
-        Retorna: Uma lista de dicionários representando os itens adicionados ao carrinho.
+        Args:
+            items (list): Uma lista de dicionários representando os itens a serem adicionados ao carrinho.
+
+        Retorna:
+            list: Uma lista de dicionários representando os itens adicionados ao carrinho.
         """
         try:
             self.shopping_cart.clear()
@@ -150,7 +167,8 @@ class RepositoryShoppingCart:
         """
         Obtém os itens do carrinho de compras.
 
-        Retorna: Uma lista de dicionários representando os itens no carrinho de compras.
+        Retorna:
+            list: Uma lista de dicionários representando os itens no carrinho de compras.
         """
         try:  
             result: list = self.shopping_cart
