@@ -52,3 +52,7 @@ $ docker run -d -p 8000:8000 carrinhocomprasbackend
 ```
 
 - ###### O Swagger estará acessível em http://localhost:8000/docs.
+
+## Extra
+
+- ###### O front-end dessa aplicação está disponível em: https://github.com/carolantero/CARRINHO_COMPRAS_MELI_FRONTEND
