@@ -35,7 +35,7 @@ class RepositoryShoppingCart:
 
     def _get_data_from_meliapi_by_category(self, category: str) -> list:
         """
-        Obtém dados da API externa (acesse: 'https://developers.mercadolibre.com/' para saber mais), para produtos de uma determinada categoria.
+        Obtém dados da API externa do Mercado Livre (veja mais em: https://developers.mercadolibre.com/), para produtos de uma determinada categoria.
 
         Args:
             category: uma categoria do tipo 'str' que será usada como parametro na url da api externa.
