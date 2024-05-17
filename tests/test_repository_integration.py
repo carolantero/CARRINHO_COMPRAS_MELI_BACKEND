@@ -18,6 +18,9 @@ class TestRepositoryShoppingCartIntegration(unittest.TestCase):
             self.assertIn('thumbnail', item)
 
     def test_get_data_from_meliapi_valid(self):
+        """
+        Testa os métodos _get_data_from_meliapi e _get_data_from_meliapi_by_category que fazem integração com a api externa do Mercado Livre.
+        """
         category = 'eletrodomestico'
 
         try:
@@ -32,6 +35,9 @@ class TestRepositoryShoppingCartIntegration(unittest.TestCase):
 
 
     def test_get_data_from_meliapi_by_category_invalid(self):
+        """
+        Testa o método _get_data_from_meliapi_by_category que faz integração com a api externa do Mercado Livre e valida se o parâmetro 'category' possui um valor válido.
+        """
         category = '#########'
         
         with self.assertRaises(HTTPException) as context:
